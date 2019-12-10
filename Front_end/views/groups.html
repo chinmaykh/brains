@@ -1,0 +1,61 @@
+<div id="ultraparent" class="teal" onload="adjustHeight()">
+  <div class="row" ng-style="{{desktop_height}}">
+    <div class="col s4 teal lighten-3" ng-style="myStyle" ng-load="adjustHeight()">
+      <div class="collection" style="margin: 0%">
+        <div class="collection-item" ng-repeat="grp in grplist" ng-click="dynamicize(grp);$location.hash('theSendThing');$anchorScroll">{{grp}}</div>
+      </div>
+    </div>
+    <div class="col s8 teal lighten-1" ng-style="msgCol">
+      <div class="collection" style="margin: 0%">
+        <div class="collection-item" id="something" class="white" style="width: 100%">{{msgHead}}</div>
+      </div>
+      <div class="row" style="margin:0%">
+        <div id="msgContainer" class="col s12" ng-style="{{mobile_container}}">
+          <div ng-repeat="msg in dynamic.msg" class="{{msg.color}}" style="border-radius: 50px ; width: fit-content;padding-left:4px ;padding-right:4px; padding-bottom: 10px;padding-top: 10px;min-width: 50px; margin-top:5px">
+            {{msg.entry}}
+            <div style="font-size: 10px; right: 0%; font-style: italic; text-indent: 10px">{{msg.user}}</div>
+          </div> 
+        </div>
+        <div class="row col s12" style="margin: 0px;">
+          <input class="col s10" ng-model="msgInput" id = "bottom" type="text" ng-style="position :"absolute", margin:0, bottom : 0px, width : 100%, color:black,background-color:white, bottom:0" ng-keypress="checkEnter($event)">
+          <div class="col s1" ng-click="sendMessage()" id="theSendThing">
+            <i class="material-icons">send</i>
+          </div>
+          <div class="col s1">
+            <i class="material-icons modal-trigger" href="#fileModal">attach_files</i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal Structure -->
+  <div id="fileModal" class="modal">
+    <div class="modal-content">
+      <h4>File Upload</h4>
+      <p>Choose a file </p>
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>File</span>
+          <input type="file" file-model='IMAGE'>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+      <p>File name </p>
+      <input type="text" required placeholder="Name of File" ng-model="place">
+    </div>
+    <div class="modal-footer">
+      <a ng-click="uploadFile()" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $('.modal').modal();
+    });
+  </script>
+
+</div>

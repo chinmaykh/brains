@@ -1,0 +1,64 @@
+<br>
+<div class="container">
+    <div class="row"  style="background-color: #E9EAEC;">
+        <form ng-submit="createNode();" id="newNodeForm" class="col s12 l6 z-depth-4" style="padding: 1.7em;">
+            <h3 class="white-text" style="font-weight:bolder;">Gulp! I need that info</h3>
+            <div class="input-field col s12">
+                <input id="first_name" type="text" class="validate white-text" ng-model="nodeTitle" required>
+                <label for="first_name">Title</label>
+            </div>
+            <div class="input-field col s12">
+                <textarea id="textarea1" class="materialize-textarea" ng-model="nodeData" style="color: #E9EAEC;" required></textarea>
+                <label for="textarea1" >Data</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix white-text" ng-click="addNodetoList()">add</i>
+                <input type="text" id="autocomplete-input" class="autocomplete white-text" autocomplete="new-password"
+                    ng-model="toAddNode">
+                <label for="autocomplete-input">Choose neighbors</label>
+            </div>
+            <button type="submit" class="btn btn-large col l12" style="border-radius:10px; background-color: #FAD02C; color: #333652; font-weight: bold;">Feed it!</button>
+
+        </form>
+        <div ng-repeat="n in neighborsNames" class="col l6">
+            <div class="card-panel yellow" style="border-radius:10px;">
+                <i class="material-icons prefix">compare_arrows</i>
+                <div>{{n}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #E9EAEC;
+    }
+
+    #newNodeForm {
+        background-color: #333652;
+        border-radius: 10px;
+    }
+
+    /* label color */
+    .input-field label {
+        color: #FAD02C !important;
+    }
+
+    /* label focus color */
+    .input-field input[type=text]:focus+label {
+        color: #FAD02C !important;
+    }
+
+    .input-field textarea:focus {
+        border-bottom: 1px solid #FAD02C !important;
+        box-shadow: 0 1px 0 0 #FAD02C !important;
+    }
+
+    /* label underline focus color */
+    .input-field input[type=text]:focus {
+        border-bottom: 1px solid #FAD02C !important;
+        box-shadow: 0 1px 0 0 #FAD02C !important;
+    }
+</style>

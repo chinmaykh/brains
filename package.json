@@ -1,11 +1,20 @@
 {
-  "name": "template",
+  "name": "brains",
   "version": "1.0.0",
-  "description": "This is a MEAN STACK template made by Chinmay K Haritas",
+  "description": "a graph project for organizing data in the form of a network",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon",
+    "start": "node app.js"
   },
   "author": "Chinmay K Haritas",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "express": "4.17.1",
+    "express-fileupload": "1.1.6",
+    "gridfs-stream": "1.1.1",
+    "mongoose": "5.8.0",
+    "paper": "^0.12.4"
+  }
 }

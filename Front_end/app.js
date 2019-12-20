@@ -3,8 +3,18 @@ var myApp = angular.module('myApp', ['ngRoute']);
 myApp.config(function($routeProvider){
     $routeProvider
     .when('/', {
-		controller:'StudentsController', // Controller name ( declaration )
-		templateUrl:'views/login_1.html' // Viewto be embedded in index.html
+		templateUrl:'views/views/uvinn.html' // Viewto be embedded in index.html
+    })
+    .when('/createNode',{
+      controller:'NodeCreationController',
+      templateUrl:'views/newNode.html'
+    })
+    .when('/editNode',{
+      controller:'NodeEditController',
+      templateUrl:'views/nodeDetails.html'
+    })
+    .when('/scribble',{
+      templateUrl:'views/draw.html'
     })
     /*
     .when('/urlextension', {

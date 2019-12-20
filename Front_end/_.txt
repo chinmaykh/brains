@@ -1,0 +1,59 @@
+Unified visual interface for Node network - UVINN
+
+First have O-School layouting 
+
+1) Create a node
+2) Find node by id and list all it's edges.
+3) When adding edges, ask for edge info and give target _id
+
+
+
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper amber darken-1" id="navnavnav" style="position: relative;">
+                <a href="#!" class="brand-logo" style="width:fit-content;padding-left: 20px">Heading !!</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="#!/timetable">Dummy</a>
+                    </li>
+                    <li>
+                        <a href="#!/chats">Dummy</a>
+                    </li>
+                    <li>
+                        <a href="collapsible.html">Dummy</a>
+                    </li>
+                    <li>
+                        <a href="#!/room">Dummy</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li>
+            <a href="#!/timetable">Dummy</a>
+        </li>
+        <li>
+            <a href="#!/chats">Dumb</a>
+        </li>
+        <li>
+            <a href="collapsible.html">Dummy</a>
+        </li>
+        <li>
+            <a href="#!/room">DumDum</a>
+        </li>
+    </ul>
+
+
+Designing space
+
+Color scheme - four color 
+Primary Seocndary Tertiary Quarternary
+#333652 - Dark blue
+#FAD02C - yellow
+#E9EAEC - Pewter
+#90ADC6 - Blue gray

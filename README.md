@@ -1,2 +1,2 @@
 # brains
- a graph project for organizing data in the form of a netwrok
+ a graph project for organizing data in the form of a network

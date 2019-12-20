@@ -1,0 +1,11 @@
+
+// Most important operations for the node - create a node, create a vertex, retrieve the node, delete (? delete the vertices and remove from the neighors - how to find )
+/*
+	When vertex is blank, add special char for data, vertexDefault name is the Title1/Title2
+	Return the default strcutue
+*/
+
+// Creating a node 
+module.exports.createNode = (, limit) =>{
+	Reminder.find(callback).limit(limit);
+};

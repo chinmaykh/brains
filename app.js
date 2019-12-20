@@ -1,4 +1,4 @@
-// (Application name) 
+// brains - ChinmayKH 10 December 2019
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
@@ -8,33 +8,36 @@ const bodyParser = require('body-parser');
 // Import Mongoose package
 const mongoose = require('mongoose');
 // Connect to Mongoose
-var url = 'mongodb://localhost/' + '(localDBname)'
+var url = 'mongodb://localhost/' + 'brains'
 
 mongoose.connect(url, {
-	useMongoClient: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true
 });
 
 var conn = mongoose.connection;
-const nodemailer = require('nodemailer');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+// const nodemailer = require('nodemailer');
+// const multer = require('multer');
+// const path = require('path');
+// const fs = require('fs');
 var fileupload = require("express-fileupload");
 var Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
 
 app.use(express.static(__dirname + '/Front_end'));		//static public directory to be used
-app.use(bodyParser.json()); // BOdy PArser initilization
+app.use(bodyParser.json()); // Body PArser initilization
+// Read files in body
 app.use(fileupload());
+// Allow CORS
 app.use(function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	console.log(req.body);
 	next();
 });
 
 
 // ObjectName = require('./models/NameOfFile)
+node = require('./models/node');
 
 conn.once('open', function () {
 	var gfs = Grid(conn.db);
@@ -43,15 +46,36 @@ conn.once('open', function () {
 	// All set!
 
 
-    //-----------------------------MAIL OPTIONS-------------------------------------------
+	//-----------------------------MAIL OPTIONS-------------------------------------------
 
-	var transporter = nodemailer.createTransport({
-		service: 'gmail',
-		auth: {
-			user: 'chinmayharitas@gmail.com', // Username
-			pass: 'Chin9kesh8' // pWord
-		}
-	});
+	// var transporter = nodemailer.createTransport({
+	// 	service: 'gmail',
+	// 	auth: {
+	// 		user: 'chinmayharitas@gmail.com', // Username
+	// 		pass: 'Chin9kesh8' // pWord
+	// 	}
+	// });
+
+	// Enclose this in a proper route provider
+
+	//  var mailOptions = {
+	// 	from: 'svnpsrnr@gmail.com',
+	// 	to: ['chinmayharitas@gmail.com'],
+	// 	subject: 'Feedback !',
+	// 	text: JSON.stringify(fbbbb)
+
+
+	// transporter.sendMail(mailOptions, function (error, info) {
+
+	// 	if (error) {
+	// 		console.log(error);
+	// 		console.log("Check for security permission from google");
+	// 	} else {
+	// 		console.log('Email sent: ' + info.response);
+	// 	}
+	// });
+
+
 
 
 	// FILE UPLOADS
@@ -75,7 +99,7 @@ conn.once('open', function () {
 		writeStream.end();
 	}
 
-    // FILE DOWNLOAD GATEWAY
+	// FILE DOWNLOAD GATEWAY
 	function getFiles(req, res) {
 
 		var readstream = gfs.createReadStream({
@@ -85,8 +109,7 @@ conn.once('open', function () {
 
 	}
 
-    // FILE QUERY PATHWAY
-
+	// FILE QUERY PATHWAY
 	function findFiles(req, res, pram) {
 
 		// console.log("filename to download "+req.params);
@@ -108,49 +131,29 @@ conn.once('open', function () {
 
 	}
 
-    // FILE UPLOAD URL
+	// FILE UPLOAD URL
 	app.post('/upload', (req, res) => {
 		req.files.file.name = req.body.class;
 		console.log(req);
 		cmon(req, res);
 	});
 
-    // FILE DOWNLOAD URL
+	// FILE DOWNLOAD URL
 	app.get('/files/:id', (req, res) => {
 		console.log(req.params.id);
 		getFiles(req.params.id, res);
 
 	});
 
-    // FILE QUERY URL
+	// FILE QUERY URL
 	app.post('/findMyFiles/', (req, res) => {
 		var param = req.body.param;
 		console.log(param);
 		findFiles(req, res, param);
 	});
 
-	//----- Feedback -----
-    
-        // Enclose this in a proper route provider
+	// New data type - Node, id is the pointer
 
-		//  var mailOptions = {
-		// 	from: 'svnpsrnr@gmail.com',
-		// 	to: ['chinmayharitas@gmail.com'],
-		// 	subject: 'Feedback !',
-		// 	text: JSON.stringify(fbbbb)
-	
-
-		// transporter.sendMail(mailOptions, function (error, info) {
-
-		// 	if (error) {
-		// 		console.log(error);
-		// 		console.log("Check for security permission from google");
-		// 	} else {
-		// 		console.log('Email sent: ' + info.response);
-		// 	}
-		// });
-
-		
 	//--------------------------------------------------Admin--------------------------------------------------------------------------------------
 
 	// app.get('/list/Admins', (req, res) => {
@@ -163,9 +166,53 @@ conn.once('open', function () {
 	// 	});
 	// });
 
-	var portnum   =  8000 ;// Your wish !!
+	/*
+	node  = title, metadata and edges array
+	*/
+
+	// Creating a node
+	app.post('/api/create/node', (req, res) => {
+		try {
+			node.createNode(req.body, (err, data) => {
+				if (err) throw err;
+				res.send(data);
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	})
+
+	//Find 
+	app.get('/api/find/node/',(req,res)=>{
+		node.findNode(req.params,(err,data)=>{
+			if (err) throw err;
+			res.send(data);
+		})
+	})
+
+	//Delete
+	app.delete('/api/delete/node',(req,res)=>{
+		node.deleteNode(req.body,(err)=>{
+			if(err) throw err;
+			console.log('Done');
+			res.send('Deleting...')
+		})
+	})
+
+	app.put('/api/update/node',(req,res)=>{
+		console.log('Update called\n\n');
+		console.log(req.body)
+		console.log("");
+		node.evolve(req.body,(err,data)=>{
+			if(err) throw err;
+			console.log('Update successful');
+			res.send('OK');
+		})
+	})
+
+	var portnum = 9876; // Your wish !!
 	app.listen(portnum);
 	console.log("The Server is running on port number " + portnum)
-	});
+});
 
 

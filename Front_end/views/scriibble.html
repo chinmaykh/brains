@@ -1,0 +1,27 @@
+<html>
+
+<head>
+  <!-- Load the Paper.js library -->
+  <script type="text/javascript" src="../paper/dist/paper-full.js"></script>
+  <!-- Define inlined PaperScript associate it with myCanvas -->
+  <script type="text/paperscript" src="../controllers/draw.js" canvas="myCanvas"></script>
+</head>
+
+<body>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    /* Scale canvas with resize attribute to full size */
+    canvas[resize] {
+      width: 200%;
+      height: 200%;
+    }
+  </style>
+  <canvas id="myCanvas" resize hidpi="off"></canvas>
+</body>
+
+
+</html>
